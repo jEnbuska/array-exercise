@@ -81,15 +81,20 @@ export function reverse<T>(arr: T[]): T[] {
 
 type ReduceFunction<T, R> = (acc: R, data: T, index: number, arr: T[]) => R;
 export function reduce<T, R>(arr: T[], callback: ReduceFunction<T, R>, initialValue: R): R {
-    const acc: R = initialValue;
-    // TODO accumulate 1 result in forloop using 'callback'
-    return acc;}
+    let acc: R = initialValue;
+    for(let i = 0; i<arr.length; i++) {
+        acc = callback(acc, arr[i], i, arr);
+    }
+    return acc;
+}
 
 export function slice<T>(arr: T[], start= 0, end = arr.length): T[] {
-    const acc: T[] = []
-    /* TODO return a new array using forloop, that consists of items between start (inclusive),
-        and end (exclusive)
-        if start >= end return value should be empty list*/
+    const acc: T[] = [];
+    /* TODO
+        - return a new array using forloop, that consists of items between start and end
+        - negative integers for start and end should be interpreted as (n)th from the tail of the list
+        (for example (-1) means last and (-2) means second last, etc.)
+        - if start item is before end item return empty list */
     return acc;
 }
 
