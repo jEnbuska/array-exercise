@@ -62,7 +62,7 @@ export function map<T, R>(arr: T[], callback: MapFunction<T, R>): R[] {
     return acc;
 }
 
-type FlatMapFunction<T, R> = (data: T[], index: number, arr: T[]) => R[] | R;
+type FlatMapFunction<T, R> = (data: T, index: number, arr: T[]) => R[] | R;
 export function flatMap<T, R>(arr: T[], callback: FlatMapFunction<T, R>): R[] {
     const acc: R[] = [];
     // TODO by using forloop, return Array of 'R'.
