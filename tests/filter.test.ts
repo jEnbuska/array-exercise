@@ -3,9 +3,9 @@ import {filter} from "../src/array-functions";
 describe('filter', () => {
     test('filter should return all matching items', () => {
         const arr = filter([1,2,3], (it) => {
-            return Boolean(it % 1)
+            return Boolean(it % 2)
         })
-        expect(arr).toBe([1, 2]);
+        expect(arr).toStrictEqual([1, 3]);
     })
 
     test('filter should not mutate given list', () => {

@@ -21,16 +21,16 @@ describe('reduce', () => {
         expect(list).toStrictEqual([1,2,3]);
     })
 
-    test('map should be called with all arguments', () => {
+    test('reduce should be called with all arguments', () => {
         const acc = []
         reduce(['a','b','c'], (...args) => {
             acc.push(args)
-            return undefined;
+            return `${args[1]}-value`;
         }, '')
         expect(acc).toStrictEqual([
-            ['a', 0, ['a','b','c']],
-            ['b', 1, ['a','b','c']],
-            ['c', 2, ['a','b','c']],
+            ['', 'a', 0, ['a','b','c']],
+            ['a-value', 'b', 1, ['a','b','c']],
+            ['b-value', 'c', 2, ['a','b','c']],
         ])
     })
 })

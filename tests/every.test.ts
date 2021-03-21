@@ -19,7 +19,7 @@ describe('every', () => {
         let lastIndex = -1;
         every([1,2,3], (it, index) => {
             lastIndex = index;
-            return Boolean(it <= 2)
+            return Boolean(it < 2)
         })
         expect(lastIndex).toBe(1);
     })
@@ -28,7 +28,7 @@ describe('every', () => {
         const acc = []
         every(['a','b','c'], (...args) => {
             acc.push(args)
-            return false;
+            return true;
         })
         expect(acc).toStrictEqual([
             ['a', 0, ['a','b','c']],

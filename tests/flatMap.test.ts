@@ -15,7 +15,8 @@ describe('flatMap', () => {
     })
 
     test('flatMap should map mixed items to flat list', () => {
-        const arr = flatMap([1,2,[3, 4]], (it) => {
+        const list = [1,2,[3, 4]];
+        const arr = flatMap(list, (it) => {
             return it
         })
         expect(arr).toStrictEqual([1, 2, 3, 4]);
