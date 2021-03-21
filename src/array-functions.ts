@@ -6,8 +6,6 @@
 
 type ForEachFunction<T> = (data: T, index: number, arr: T[]) => void;
 export function forEach<T>(arr: T[], callback: ForEachFunction<T>) {
-    // TODO invoke 'callback' with every item in 'arr', using forloop
-    // Prefilled example nothing todo here
     for(let i = 0; i<arr.length; i++) {
         const item = arr[i];
         callback(item, i, arr);
@@ -16,8 +14,6 @@ export function forEach<T>(arr: T[], callback: ForEachFunction<T>) {
 
 type SomeFunction<T> = (data: T, index: number, arr: T[]) => boolean;
 export function some<T>(arr: T[], callback: SomeFunction<T>): boolean {
-    // TODO return true if some item in 'arr' return true using 'callback', otherwise return false
-    // Prefilled example nothing todo here
     for(let i = 0; i<arr.length; i++) {
         const item = arr[i];
         if(callback(item, i, arr)) {
@@ -29,19 +25,36 @@ export function some<T>(arr: T[], callback: SomeFunction<T>): boolean {
 
 type EveryFunction<T> = (data: T, index: number, arr: T[]) => boolean;
 export function every<T>(arr: T[], callback: EveryFunction<T>): boolean {
-    // TODO return true if every item in 'arr' return true using 'callback', otherwise return false
-    return false;
+    for(let i = 0; i<arr.length; i++) {
+        const item = arr[i];
+        if(!callback(item, i, arr)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 type FindFunction<T> = (data: T, index: number, arr: T[]) => boolean;
 export function find<T>(arr: T[], callback: FindFunction<T>): T | undefined {
+    for(let i = 0; i<arr.length; i++) {
+        const item = arr[i];
+        if(callback(item, i, arr)) {
+            return item;
+        }
+    }
+    return undefined;
     // TODO return first 'item' using forloop that returns true when invoked with 'callback'
     return undefined;
 }
 
 type FindIndexFunction<T> = (data: T, index: number, arr: T[]) => boolean;
 export function findIndex<T>(arr: T[], callback: FindIndexFunction<T>): number {
-    // TODO return index of first item in 'arr' using 'callback', if no item is found return -1
+    for(let i = 0; i<arr.length; i++) {
+        const item = arr[i];
+        if(callback(item, i, arr)) {
+            return i;
+        }
+    }
     return -1;
 }
 
@@ -49,53 +62,90 @@ export function findIndex<T>(arr: T[], callback: FindIndexFunction<T>): number {
 type FilterFunction<T> = (data: T, index: number, arr: T[]) => boolean;
 export function filter<T>(arr: T[], callback: FilterFunction<T>): T[] {
     const acc: T[] = [];
-    // TODO add items to list using forloop that return true
+    for(let i = 0; i<arr.length; i++) {
+        const item = arr[i];
+        if(callback(item, i, arr)) {
+            acc.push(item)
+        }
+    }
     return acc;
 }
 
 type MapFunction<T, R> = (data: T, index: number, arr: T[]) => R;
 export function map<T, R>(arr: T[], callback: MapFunction<T, R>): R[] {
     const acc: R[] = [];
-    // TODO transform items and add the to list using 'callback' using forloop
+    for(let i = 0; i<arr.length; i++) {
+        const item = callback(arr[i], i, arr);
+        acc.push(item);
+    }
     return acc;
 }
 
 type FlatMapFunction<T, R> = (data: T, index: number, arr: T[]) => R[] | R;
 export function flatMap<T, R>(arr: T[], callback: FlatMapFunction<T, R>): R[] {
     const acc: R[] = [];
-    // TODO by using forloop, return Array of 'R'.
-    //  - If callback return a array (use Array.isArray function), append them all to acc
-    //  - If callback a non array, append this single item to list.
+    for(let i = 0; i<arr.length; i++) {
+        const item = callback(arr[i], i, arr);
+        if (Array.isArray(item)) {
+            acc.push(...item)
+        } else {
+            acc.push(item);
+        }
+    }
     return acc;
 }
 
 export function reverse<T>(arr: T[]): T[] {
-    // TODO return 'arr' in reverse order (this operation should be mutable)
+    const copy: T[] = [...arr];
+    for(let i = 0; i<arr.length; i++) {
+        arr[arr.length - 1 - i] = copy[i];
+    }
     return arr;
 }
 
-
-
 type ReduceFunction<T, R> = (acc: R, data: T, index: number, arr: T[]) => R;
 export function reduce<T, R>(arr: T[], callback: ReduceFunction<T, R>, initialValue: R): R {
-    const acc: R = initialValue;
-    // TODO accumulate 1 result in forloop using 'callback'
+    let acc: R = initialValue;
+    for(let i = 0; i<arr.length; i++) {
+        acc = callback(acc, arr[i], i, arr);
+    }
     return acc;
 }
 
 export function slice<T>(arr: T[], start= 0, end = arr.length): T[] {
     const acc: T[] = [];
-    /* TODO
-        - return a new array using forloop, that consists of items between start and end
-        - negative integers for start and end should be interpreted as (n)th from the tail of the list
-        (for example (-1) means last and (-2) means second last, etc.)
-        - if start item is before end item return empty list */
+    if (start < 0) {
+        start = arr.length + start;
+    }
+    start = Math.max(start, 0);
+    if (end < 0) {
+        end = arr.length + end;
+    }
+    end = Math.max(end, start);
+    for(let i = start; i<end; i++) {
+        acc.push(arr[i]);
+    }
     return acc;
 }
 
+// Probably not the most elegant solution
 export function splice<T>(arr: T[], start= 0, deleteCount = arr.length - start, ...items: T[]): T[] {
-    /* TODO
-        See splice documentation at https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
-    */
-    return [];
+    if (start < 0) {
+        start = arr.length + start;
+    }
+    start = Math.max(start, 0);
+    // remove items 'start'
+    const head: T[] = [];
+    for(let i = 0; i < start; i++) {
+        head.push(arr.shift());
+    }
+    deleteCount = Math.max(0, deleteCount);
+    // remove 'deleteCount' number of items and store them
+    const deleted: T[] = [];
+    for(let i = 0; i < deleteCount; i++) {
+        deleted.push(arr.shift());
+    }
+    arr.unshift(...items);
+    arr.unshift(...head);
+    return deleted;
 }
