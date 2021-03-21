@@ -35,16 +35,14 @@ export function every<T>(arr: T[], callback: EveryFunction<T>): boolean {
 
 type FindFunction<T> = (data: T, index: number, arr: T[]) => boolean;
 export function find<T>(arr: T[], callback: FindFunction<T>): T | undefined {
-    let item: T | undefined = undefined;
     // TODO return first 'item' using forloop that returns true when invoked with 'callback'
-    return item;
+    return undefined;
 }
 
 type FindIndexFunction<T> = (data: T, index: number, arr: T[]) => boolean;
 export function findIndex<T>(arr: T[], callback: FindIndexFunction<T>): number {
-    let index = -1;
     // TODO return index of first item in 'arr' using 'callback', if no item is found return -1
-    return index;
+    return -1;
 }
 
 
@@ -96,9 +94,8 @@ export function slice<T>(arr: T[], start= 0, end = arr.length): T[] {
 }
 
 export function splice<T>(arr: T[], start= 0, deleteCount = arr.length - start, ...items: T[]): T[] {
-    const deleted: T[] = []
     /* TODO
         See splice documentation at https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
     */
-    return deleted;
+    return [];
 }
