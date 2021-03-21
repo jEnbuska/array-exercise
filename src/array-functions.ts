@@ -72,7 +72,6 @@ export function flatMap<T, R>(arr: T[], callback: FlatMapFunction<T, R>): R[] {
 }
 
 export function reverse<T>(arr: T[]): T[] {
-    const copy: T[] = [...arr];
     // TODO return 'arr' in reverse order (this operation should be mutable)
     return arr;
 }
@@ -81,10 +80,8 @@ export function reverse<T>(arr: T[]): T[] {
 
 type ReduceFunction<T, R> = (acc: R, data: T, index: number, arr: T[]) => R;
 export function reduce<T, R>(arr: T[], callback: ReduceFunction<T, R>, initialValue: R): R {
-    let acc: R = initialValue;
-    for(let i = 0; i<arr.length; i++) {
-        acc = callback(acc, arr[i], i, arr);
-    }
+    const acc: R = initialValue;
+    // TODO accumulate 1 result in forloop using 'callback'
     return acc;
 }
 
@@ -100,11 +97,8 @@ export function slice<T>(arr: T[], start= 0, end = arr.length): T[] {
 
 export function splice<T>(arr: T[], start= 0, deleteCount = arr.length - start, ...items: T[]): T[] {
     const deleted: T[] = []
-    /* TODO (use forloop)
-        - Starting from 'start' index, remove 'deleteCount' number of items from 'arr' (this operation should be mutable)
-        - Move all items up in 'arr' by 'items.length', starting from 'start' index (this operation should be mutable)
-        - Add all 'items' to 'arr' starting from 'start' index (this operation should be mutable)
-        - return deleted item
+    /* TODO
+        See splice documentation at https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
     */
     return deleted;
 }
