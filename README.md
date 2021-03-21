@@ -23,6 +23,4 @@ describe.only('filter', () => {
 
 --------
 
-#### Note that some (possible many) of the test might not work correctly, so they might need to be fixed.
-
-#### Please submit a pull-request if you when you encounter such tests
+#### If you encounter test do not work correctly or are not sufficient, please submit a pull-request 🙏
