@@ -1,11 +1,12 @@
 /*
-* This file contains list of self made array functions
+* This file contains list of lodash like array functions to be implemented
+* While implementing these functions, don't use any native arrays methods (except spread operator, 'push', 'pop', 'unshift' and 'shift')
 * See array method documentation at https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
-* These implementation differs from arrays native implementation, in a way that they require array to be passed to them as first argument (see forEach example below)
 * */
 
 type ForEachFunction<T> = (data: T, index: number, arr: T[]) => void;
 export function forEach<T>(arr: T[], callback: ForEachFunction<T>) {
+    // Prefilled example
     for(let i = 0; i<arr.length; i++) {
         const item = arr[i];
         callback(item, i, arr);
@@ -14,6 +15,7 @@ export function forEach<T>(arr: T[], callback: ForEachFunction<T>) {
 
 type SomeFunction<T> = (data: T, index: number, arr: T[]) => boolean;
 export function some<T>(arr: T[], callback: SomeFunction<T>): boolean {
+    // Prefilled example
     for(let i = 0; i<arr.length; i++) {
         const item = arr[i];
         if(callback(item, i, arr)) {
