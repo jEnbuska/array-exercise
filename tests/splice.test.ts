@@ -52,4 +52,12 @@ describe('splice', () => {
         copy.splice( 1, 2, 100, 200, 300);
         expect(list).toStrictEqual(copy);
     })
+
+    test('calling splice with too large "deleteCount" should not remove too many items', () => {
+        const list = [1,2,3,4,5];
+        const copy = [...list]
+        const deleted = splice(list, 1, 100);
+        expect(deleted).toEqual(copy.splice(1, 100));
+        expect(list).toStrictEqual(copy);
+    })
 })
