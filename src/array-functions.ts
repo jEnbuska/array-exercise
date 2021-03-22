@@ -137,11 +137,15 @@ export function splice<T>(arr: T[], start= 0, deleteCount = arr.length - start, 
     }
     start = Math.max(start, 0);
     // remove items 'start'
+    const {length} = arr;
     const head: T[] = [];
     for(let i = 0; i < start; i++) {
         head.push(arr.shift());
     }
+    // ensure deleteCount >= 0
     deleteCount = Math.max(0, deleteCount);
+    // ensure deleteCount does not delete more items that exists
+    deleteCount = Math.min(deleteCount, length - start);
     // remove 'deleteCount' number of items and store them
     const deleted: T[] = [];
     for(let i = 0; i < deleteCount; i++) {
