@@ -15,7 +15,7 @@ Make all the test green, and you are a true JavaScript guru!
 
 ### Hint
 
-If you want to watch tests only for a spesific function, run `npm run test <function>`. For-example: `npm run test flatMap`
+If you want to watch tests only for a specific function, run `npm run test <function>`. For-example: `npm run test flatMap`
 
 --------
 
