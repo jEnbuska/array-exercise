@@ -60,4 +60,14 @@ describe('splice', () => {
         expect(deleted).toEqual(copy.splice(1, 100));
         expect(list).toStrictEqual(copy);
     })
+
+    test('calling splice with negative "deleteCount" should not remove any items', () => {
+        const list = [1,2,3,4,5];
+        const copy = [...list]
+        const deleted = splice(list, 1, -2);
+        expect(deleted).toEqual(copy.splice(1, -2));
+        console.log('copy', copy)
+        console.log('list', list)
+        expect(list).toStrictEqual(copy);
+    })
 })
